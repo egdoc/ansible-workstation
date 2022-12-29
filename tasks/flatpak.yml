@@ -11,6 +11,6 @@
     state: present
     method: user
     name:
-      - com.videolan.VLC
+      - org.videolan.VLC
       - com.calibre_ebook.calibre
   tags: flatpak_packages
