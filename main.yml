@@ -1,0 +1,94 @@
+- name: Post-installation workstation setup
+  hosts: localhost
+  vars:
+    desktop_environment: gnome
+
+  roles:
+    - role: egdoc.dotfiles
+      dotfiles_force_link: true
+      dotfiles_repo_dest: ~/Documents/projects/dotfiles
+      dotfiles_files:
+        - vim
+        - vimrc
+        - gvimrc
+        - bash_profile
+        - bashrc
+        - npmrc
+        - gitconfig
+      dotfiles_config_files:
+        - pylintrc
+        - lftp
+
+    - role: egdoc.vim
+      vim_plugins_repositories:
+        - { url: https://github.com/neoclide/coc.nvim, branch: release }
+        - { url: https://github.com/joshdick/onedark.vim, branch: 'main' }
+        - https://github.com/altercation/vim-colors-solarized
+        - https://github.com/tomasiser/vim-code-dark
+        - https://github.com/ekalinin/Dockerfile.vim
+        - https://github.com/preservim/nerdcommenter
+        - https://github.com/preservim/nerdtree
+        - https://github.com/vim-airline/vim-airline
+        - https://github.com/vim-airline/vim-airline-themes
+        - https://github.com/tpope/vim-fugitive
+        - https://github.com/tpope/vim-surround
+        - https://github.com/airblade/vim-gitgutter
+        - https://github.com/nelsyeung/twig.vim
+
+  tasks:
+    - name: Import GNOME tasks
+      ansible.builtin.import_tasks:
+        file: tasks/gnome.yml
+      when: desktop_environment == "gnome"
+
+    - name: Import Xfce tasks
+      ansible.builtin.import_tasks:
+        file: tasks/xfce.yml
+      when: desktop_environment == "xfce"
+
+    - name: Import Plasma tasks
+      ansible.builtin.import_tasks:
+        file: tasks/plasma.yml
+      when: desktop_environment == "plasma"
+
+    - name: Import packages tasks
+      ansible.builtin.import_tasks:
+        file: tasks/common-packages.yml
+      tags: common-packages
+
+    - name: Import Docker tasks
+      ansible.builtin.import_tasks:
+        file: tasks/docker.yml
+      tags: docker
+
+    - name: Import google chrome tasks
+      ansible.builtin.import_tasks:
+        file: tasks/google-chrome.yml
+      tags: google-chrome
+
+    - name: Import vscode tasks
+      ansible.builtin.import_tasks:
+        file: tasks/vscode.yml
+      tags: vscode
+
+    - name: Import flatpak tasks
+      ansible.builtin.import_tasks:
+        file: tasks/flatpak.yml
+      tags: flatpak
+
+    - name: Import avatar tasks
+      ansible.builtin.import_tasks:
+        file: tasks/avatar.yml
+      tags: avatar
+
+    - name: Regenerate initramfs
+      become: true
+      ansible.builtin.command:
+        cmd: dracut --regenerate-all --force
+      tags: initramfs
+
+    - name: Ensure graphical.target is the default
+      become: true
+      ansible.builtin.command:
+        cmd: systemctl set-default graphical.target
+      tags: graphical-target

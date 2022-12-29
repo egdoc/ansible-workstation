@@ -1,0 +1,30 @@
+- name: Install Plasma packages
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name:
+      - '@Common NetworkManager Submodules'
+      - '@Core'
+      - '@Fonts'
+      - '@Hardware Support'
+      - '@KDE (K Desktop Environment)'
+      - '@Printing Support'
+      - '@Standard'
+      - '@base-x'
+    exclude:
+      - akregator
+      - dnfdragora
+      - firewall-config
+      - gnome-keyring-pam
+      - initial-setup-gui
+      - kaddressbook
+      - kamera
+      - kde-partitionmanager
+      - kdeplasma-addons
+      - kmail
+      - kmouth
+      - kontact
+      - korganizer
+      - plasma-vault
+      - xdg-desktop-portal-gnome
+  when: "ansible_facts.distribution == 'Fedora'"

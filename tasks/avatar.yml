@@ -1,0 +1,18 @@
+- name: Set user image
+  become: true
+  block:
+    - name: Download image
+      ansible.builtin.get_url:
+        url: https://avatars.githubusercontent.com/u/19516755?v=4
+        dest: /var/lib/AccountsService/icons/doc
+        mode: 0644
+
+    - name: Setup AccountService
+      ansible.builtin.copy:
+        dest: /var/lib/AccountsService/users/doc
+        mode: 0644
+        content: |
+          [User]
+          Language=en_US.utf8
+          Icon=/var/lib/AccountsService/icons/doc
+          SystemAccount=false

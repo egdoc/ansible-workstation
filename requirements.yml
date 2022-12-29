@@ -1,0 +1,6 @@
+roles:
+  - egdoc.dotfiles
+  - egdoc.vim
+
+collections:
+  - community.general

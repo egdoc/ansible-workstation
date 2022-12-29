@@ -1,0 +1,31 @@
+- name: Install workstation packages
+  become: true
+  ansible.builtin.dnf:
+    state: latest
+    name:
+      - '@virtualization'
+      - linux-firmware
+      - ansible
+      - ansible-collection-community-general
+      - fira-code-fonts
+      - firefox
+      - power-profiles-daemon
+      - docker
+      - docker-compose
+      - python3-pip
+      - python3-psutil
+      - python3-virtualenv
+      - php-cli
+      - composer
+      - nodejs
+      - npm
+      - git
+      - svn
+      - pass
+      - stow
+      - lftp
+      - nmap
+      - ShellCheck
+      - vim
+      - sqlite
+  when: "ansible_facts.distribution == 'Fedora'"

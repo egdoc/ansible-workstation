@@ -1,0 +1,62 @@
+- name: Install Xfce packages
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name:
+      - '@Common NetworkManager Submodules'
+      - '@Core'
+      - '@Fonts'
+      - '@Hardware Support'
+      - '@Printing Support'
+      - '@Standard'
+      - '@Xfce'
+      - '@base-x'
+      - system-config-printer
+      - system-config-printer-applet
+      - mousepad
+      - ristretto
+    exclude:
+      - NetworkManager-fortisslvpn-gnome
+      - NetworkManager-iodine-gnome
+      - NetworkManager-l2tp-gnome
+      - NetworkManager-libreswan-gnome
+      - NetworkManager-openconnect-gnome
+      - NetworkManager-openvpn-gnome
+      - NetworkManager-pptp-gnome
+      - NetworkManager-ssh-gnome
+      - NetworkManager-sstp-gnome
+      - NetworkManager-strongswan-gnome
+      - NetworkManager-vpnc-gnome
+      - abrt-desktop
+      - initial-setup-gui
+      - mint-y-theme
+      - xfwm4-themes
+  when: "ansible_facts.distribution == 'Fedora'"
+
+- name: Xfconf settings
+  community.general.xfconf:
+    channel: '{{ item.channel }}'
+    property: '{{ item.property }}'
+    value_type: '{{ item.value_type }}'
+    value: '{{ item.value }}'
+  loop:
+    - { channel: 'xfce4-desktop', property: '/desktop-icons/primary', value_type: 'bool', value: 'true' }
+    - { channel: 'xfce4-panel', property: '/panels/panel-1/output-name', value_type: 'string', value: 'Primary' }
+  tags: xfconf
+
+- name: Setup lightdm background
+  become: true
+  block:
+    - name: Set Lightdm background
+      ansible.builtin.lineinfile:
+        path: /etc/lightdm/lightdm-gtk-greeter.conf
+        regexp: ^background=
+        line: background=#0b486b
+
+    - name: Ensure lightdm is enabled
+      become: true
+      ansible.builtin.systemd:
+        name: lightdm
+        enabled: true
+        force: true
+  tags: lightdm

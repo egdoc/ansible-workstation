@@ -1,0 +1,16 @@
+- name: Ensure flathub remote is present
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+  tags: flathub
+
+- name: Install flatpaks
+  community.general.flatpak:
+    state: present
+    method: user
+    name:
+      - com.videolan.VLC
+      - com.calibre_ebook.calibre
+  tags: flatpak_packages
