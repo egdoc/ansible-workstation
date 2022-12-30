@@ -65,6 +65,7 @@
     - { key: '/org/gnome/TextEditor/show-line-numbers', value: 'true' }
     - { key: '/org/gnome/nautilus/icon-view/default-zoom-level', value: "'standard'" }
     - { key: '/org/gnome/nautilus/icon-view/captions', value: "['permissions', 'none', 'none' ]" }
+    - { key: '/org/gnome/nautilus/preferences/click-policy', value: "'single'"}
     - { key: '/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-columns', value: '150' }
     - { key: '/org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/default-size-rows', value: '30' }
     - { key: '/org/gtk/gtk4/settings/file-chooser/sort-directories-first', value: 'true' }
