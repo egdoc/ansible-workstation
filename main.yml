@@ -81,14 +81,12 @@
         file: tasks/avatar.yml
       tags: avatar
 
+
+  handlers:
     - name: Regenerate initramfs
       become: true
-      ansible.builtin.command:
-        cmd: dracut --regenerate-all --force
-      tags: initramfs
+      ansible.builtin.command: dracut --regenerate-all --force
 
     - name: Ensure graphical.target is the default
       become: true
-      ansible.builtin.command:
-        cmd: systemctl set-default graphical.target
-      tags: graphical-target
+      ansible.builtin.command: systemctl set-default graphical.target

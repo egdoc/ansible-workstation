@@ -28,3 +28,12 @@
       - plasma-vault
       - xdg-desktop-portal-gnome
   when: "ansible_facts.distribution == 'Fedora'"
+  notify: Regenerate initramfs
+
+- name: Ensure sddm is enabled
+  become: true
+  ansible.builtin.systemd:
+    name: sddm
+    enabled: true
+    force: true
+  notify: Ensure graphical.target is the default

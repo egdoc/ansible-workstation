@@ -39,6 +39,7 @@
       - totem
       - gnome-tour
   when: "ansible_facts.distribution == 'Fedora'"
+  notify: Regenerate initramfs
 
 - name: Setup dconf
   community.general.dconf:
@@ -78,3 +79,4 @@
     name: gdm
     enabled: true
     force: true
+  notify: Ensure graphical.target is the default

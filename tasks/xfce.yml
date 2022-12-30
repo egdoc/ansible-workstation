@@ -32,6 +32,7 @@
       - mint-y-theme
       - xfwm4-themes
   when: "ansible_facts.distribution == 'Fedora'"
+  notify: Regenerate initramfs
 
 - name: Xfconf settings
   community.general.xfconf:
@@ -44,7 +45,7 @@
     - { channel: 'xfce4-panel', property: '/panels/panel-1/output-name', value_type: 'string', value: 'Primary' }
   tags: xfconf
 
-- name: Setup lightdm background
+- name: Setup lightdm
   become: true
   block:
     - name: Set Lightdm background
@@ -59,4 +60,5 @@
         name: lightdm
         enabled: true
         force: true
+      notify: Ensure graphical.target is the default
   tags: lightdm
