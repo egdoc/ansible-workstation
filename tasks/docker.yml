@@ -1,7 +1,7 @@
 - name: Ensure Docker packages are installed
   become: true
   ansible.builtin.package:
-    state: latest
+    state: present
     name:
         - docker
         - docker-compose
@@ -22,7 +22,7 @@
 
     - name: Ensure Docker packages are installed
       ansible.builtin.dnf:
-        state: latest
+        state: present
         name:
           - docker-ce
           - docker-ce-cli

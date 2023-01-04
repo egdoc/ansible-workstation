@@ -3,38 +3,6 @@
   vars:
     desktop_environment: gnome
 
-  roles:
-    - role: egdoc.dotfiles
-      dotfiles_force_link: true
-      dotfiles_repo_dest: ~/Documents/projects/dotfiles
-      dotfiles_files:
-        - vim
-        - vimrc
-        - gvimrc
-        - bash_profile
-        - bashrc
-        - npmrc
-        - gitconfig
-      dotfiles_config_files:
-        - pylintrc
-        - lftp
-
-    - role: egdoc.vim
-      vim_plugins_repositories:
-        - { url: https://github.com/neoclide/coc.nvim, branch: release }
-        - { url: https://github.com/joshdick/onedark.vim, branch: 'main' }
-        - https://github.com/altercation/vim-colors-solarized
-        - https://github.com/tomasiser/vim-code-dark
-        - https://github.com/ekalinin/Dockerfile.vim
-        - https://github.com/preservim/nerdcommenter
-        - https://github.com/preservim/nerdtree
-        - https://github.com/vim-airline/vim-airline
-        - https://github.com/vim-airline/vim-airline-themes
-        - https://github.com/tpope/vim-fugitive
-        - https://github.com/tpope/vim-surround
-        - https://github.com/airblade/vim-gitgutter
-        - https://github.com/nelsyeung/twig.vim
-
   tasks:
     - name: Import GNOME tasks
       ansible.builtin.import_tasks:
@@ -81,6 +49,58 @@
         file: tasks/avatar.yml
       tags: avatar
 
+    - name: Deploy dotfiles
+      ansible.builtin.import_role:
+        name: egdoc.dotfiles
+      vars:
+        dotfiles_force_link: true
+        dotfiles_repo_dest: ~/Documents/projects/dotfiles
+        dotfiles_files:
+        - vim
+        - vimrc
+        - gvimrc
+        - bash_profile
+        - bashrc
+        - npmrc
+        - gitconfig
+        dotfiles_config_files:
+        - pylintrc
+        - lftp
+      tags: dotfiles
+
+    - name: Setup Vim
+      ansible.builtin.import_role:
+        name: egdoc.vim
+      vars:
+        vim_plugins_repositories:
+          - { url: https://github.com/neoclide/coc.nvim, branch: release }
+          - { url: https://github.com/joshdick/onedark.vim, branch: 'main' }
+          - https://github.com/altercation/vim-colors-solarized
+          - https://github.com/tomasiser/vim-code-dark
+          - https://github.com/ekalinin/Dockerfile.vim
+          - https://github.com/preservim/nerdcommenter
+          - https://github.com/preservim/nerdtree
+          - https://github.com/vim-airline/vim-airline
+          - https://github.com/vim-airline/vim-airline-themes
+          - https://github.com/tpope/vim-fugitive
+          - https://github.com/tpope/vim-surround
+          - https://github.com/airblade/vim-gitgutter
+          - https://github.com/nelsyeung/twig.vim
+      tags: vim
+
+    - name: Install Ides
+      ansible.builtin.include_role:
+        name: egdoc.jetbrains
+        apply:
+          tags: ide
+      vars:
+        ide: '{{ ide }}'
+      loop:
+        - pycharm-community
+        - phpstorm
+      loop_control:
+        loop_var: ide
+      tags: ide
 
   handlers:
     - name: Regenerate initramfs

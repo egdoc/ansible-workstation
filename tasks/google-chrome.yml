@@ -19,5 +19,5 @@
     - name: Install Chrome package
       ansible.builtin.dnf:
         name: google-chrome-stable
-        state: latest
+        state: present
   tags: 'google-chrome'

@@ -71,7 +71,6 @@
     - { key: '/org/gtk/gtk4/settings/file-chooser/sort-directories-first', value: 'true' }
     - { key: '/org/gtk/settings/file-chooser/sort-directories-first', value: 'true' }
     - { key: '/org/gnome/mutter/center-new-windows', value: 'true' }
-    - { key: '/org/gnome/desktop/interface/monospace-font-name', value: "'Fira Code 10'" }
   tags: dconf
 
 - name: Ensure GDM is enabled

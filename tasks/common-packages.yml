@@ -1,13 +1,12 @@
 - name: Install workstation packages
   become: true
   ansible.builtin.dnf:
-    state: latest
+    state: present
     name:
       - '@virtualization'
       - linux-firmware
       - ansible
       - ansible-collection-community-general
-      - fira-code-fonts
       - firefox
       - power-profiles-daemon
       - docker
@@ -15,6 +14,7 @@
       - python3-pip
       - python3-psutil
       - python3-virtualenv
+      - python3-jmespath
       - php-cli
       - composer
       - nodejs

@@ -11,6 +11,7 @@
       - '@Printing Support'
       - '@Standard'
       - '@base-x'
+      - ark
     exclude:
       - akregator
       - dnfdragora
@@ -37,3 +38,7 @@
     enabled: true
     force: true
   notify: Ensure graphical.target is the default
+
+- name: Add dotfiles to the list
+  ansible.builtin.set_fact:
+    dotfiles_config_files: '{{ dotfiles_config_files + ["kde"] }}'

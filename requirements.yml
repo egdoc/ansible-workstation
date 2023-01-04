@@ -1,6 +1,7 @@
 roles:
   - egdoc.dotfiles
   - egdoc.vim
+  - egdoc.jetbrains
 
 collections:
   - community.general
