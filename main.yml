@@ -94,12 +94,12 @@
         apply:
           tags: ide
       vars:
-        ide: '{{ ide }}'
+        ide: '{{ outer_item }}'
       loop:
         - pycharm-community
         - phpstorm
       loop_control:
-        loop_var: ide
+        loop_var: outer_item
       tags: ide
 
   handlers:
