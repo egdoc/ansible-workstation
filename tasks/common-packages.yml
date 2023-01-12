@@ -9,8 +9,6 @@
       - ansible-collection-community-general
       - firefox
       - power-profiles-daemon
-      - docker
-      - docker-compose
       - python3-pip
       - python3-psutil
       - python3-virtualenv

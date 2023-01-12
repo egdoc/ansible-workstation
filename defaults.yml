@@ -1,0 +1,32 @@
+desktop_environment: gnome
+docker_users: doc
+dotfiles_force_link: true
+dotfiles_repo_dest: ~/Documents/projects/dotfiles
+dotfiles_files:
+  - vim
+  - vimrc
+  - gvimrc
+  - bash_profile
+  - bashrc
+  - npmrc
+  - gitconfig
+dotfiles_config_files:
+  - pylintrc
+  - lftp
+
+vim_use_native_packages: true
+vim_plugins_repositories:
+  - { url: https://github.com/neoclide/coc.nvim, branch: release }
+  - { url: https://github.com/altercation/vim-colors-solarized, category: "colorschemes", autostart: false }
+  - { url: https://github.com/arcticicestudio/nord-vim, branch: "main", category: "colorschemes", autostart: false }
+  - https://github.com/preservim/nerdcommenter
+  - https://github.com/preservim/nerdtree
+  - https://github.com/vim-airline/vim-airline
+  - https://github.com/vim-airline/vim-airline-themes
+  - https://github.com/tpope/vim-fugitive
+  - https://github.com/tpope/vim-surround
+  - https://github.com/airblade/vim-gitgutter
+
+jetbrains_ides:
+  - pycharm-community
+  - phpstorm

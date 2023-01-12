@@ -2,6 +2,7 @@ roles:
   - egdoc.dotfiles
   - egdoc.vim
   - egdoc.jetbrains
+  - geerlingguy.docker
 
 collections:
   - community.general
